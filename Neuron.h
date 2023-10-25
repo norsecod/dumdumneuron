@@ -24,8 +24,10 @@ typedef struct
 
 #define matrix_at(a,i,j) (a).st[(i)*(a).collums + (j)]
 
+float rand_float(void);
+
 matrix matrix_allocation(size_t rows, size_t collums); //function to allocate memory for matrixes
-void matrix_random(matrix a);                          //randomize the numbers inside a matrix, used to jump start a nevron
+void matrix_random(matrix a, float min, float max);                          //randomize the numbers inside a matrix, used to jump start a nevron
 void matrix_dot(matrix dest, matrix a, matrix b);      //prototype function for matrix dot product
 void matrix_sum(matrix dest, matrix a);                //prototype function for matrix sum
 void matrix_print(matrix a);                           //prototype function to print the matrix values 
@@ -33,6 +35,11 @@ void matrix_print(matrix a);                           //prototype function to p
 #endif // NEURON_H_
 
 #ifdef Neuron_implement //c part
+
+float rand_float(void)
+{
+   return (float) rand() / (float) RAND_MAX; //gives a random float value
+}
 
 matrix matrix_allocation(size_t rows, size_t collums)
 {
@@ -61,10 +68,19 @@ void matrix_print(matrix a)
 {  
      for (size_t i = 0; i < a.rows; ++i){
         for (size_t j = 0; j < a.collums; ++j){
-            printf("%f", matrix_at(a, i, j) ); 
+            printf("%f  ", matrix_at(a, i, j) ); 
         }
         printf("\n");                                   
      }                                     
+}
+
+void matrix_random(matrix a, float min, float max)
+{
+     for (size_t i = 0; i < a.rows; ++i){
+        for (size_t j = 0; j < a.collums; ++j){
+            matrix_at(a, i, j) = rand_float()*(max - min) + min;
+        }
+     }    
 }
 
 
