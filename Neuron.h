@@ -10,6 +10,5 @@
 #include <math.h>
 #include <string.h>
 
-asdas
 
 #endif // NN_IMPLEMENTATION
