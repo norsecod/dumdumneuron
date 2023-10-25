@@ -8,3 +8,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
+#include <string.h>
+
+
+
+#endif // NN_IMPLEMENTATION
