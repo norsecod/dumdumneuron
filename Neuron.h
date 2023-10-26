@@ -27,7 +27,7 @@ typedef struct
 float rand_float(void);
 
 matrix matrix_allocation(size_t rows, size_t collums); //function to allocate memory for matrixes
-void matrix_random(matrix a, float min, float max);                          //randomize the numbers inside a matrix, used to jump start a nevron
+void matrix_random(matrix a, float min, float max);    //randomize the numbers inside a matrix, used to jump start a nevron
 void matrix_dot(matrix dest, matrix a, matrix b);      //prototype function for matrix dot product
 void matrix_sum(matrix dest, matrix a);                //prototype function for matrix sum
 void matrix_print(matrix a);                           //prototype function to print the matrix values 
@@ -50,21 +50,37 @@ matrix matrix_allocation(size_t rows, size_t collums)
     NEURON_ASSERT(mx.st != NULL); //check that the value in pointer is not 0
     return mx;
 }
-/*
+
 void matrix_dot(matrix dest, matrix a, matrix b)    
 {
-    void(dest);
-    void(a);
-    void(b);
+    NEURON_ASSERT(a.collums == b.rows);
+    size_t n = a.collums;
+    NEURON_ASSERT(dest.rows == a.rows);
+    NEURON_ASSERT(dest.collums == b.collums);
+
+    for (size_t i = 0; i < dest.collums; ++i){
+        for (size_t j = 0; j < dest.collums; ++j){
+            matrix_at(dest, i, j) = 0;
+            for (size_t k = 0; k < n; ++k){
+                matrix_at(dest, i ,j) += matrix_at(a, i, k) * matrix_at(b, k ,j);
+            }
+        }
+    }    
+ 
 }  
 
 void matrix_sum(matrix dest, matrix a)
 {
-    void(dest);
-    void(a);
+    NEURON_ASSERT(dest.collums == a.rows);
+    NEURON_ASSERT(dest.collums == a.collums);
+    for (size_t i = 0; i < dest.collums; ++i){
+        for (size_t j = 0; j < dest.collums; ++j){
+            matrix_at(dest, i, j) +=  matrix_at(a, i, j);
+        }
+    }
 }   
-*/
-void matrix_print(matrix a)
+
+void matrix_print(matrix a) //function to print values of a matrix shown as a matrix
 {  
      for (size_t i = 0; i < a.rows; ++i){
         for (size_t j = 0; j < a.collums; ++j){
@@ -74,7 +90,7 @@ void matrix_print(matrix a)
      }                                     
 }
 
-void matrix_random(matrix a, float min, float max)
+void matrix_random(matrix a, float min, float max) //randomize all values inside a matrix
 {
      for (size_t i = 0; i < a.rows; ++i){
         for (size_t j = 0; j < a.collums; ++j){
